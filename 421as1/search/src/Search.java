@@ -108,7 +108,7 @@ public class Search {
 			Node node = frontier.remove();
 			
 			if( problem.goal_test(node.state) ) {
-				printTree(initialNode);
+				// printTree(initialNode);
 				return Solution(node);
 			}
 			
@@ -135,7 +135,7 @@ public class Search {
 			Node node = frontier.remove();
 			
 			if( problem.goal_test(node.state) ) {
-				printTree(initialNode);
+				// printTree(initialNode);
 				return Solution(node);
 			}
 		

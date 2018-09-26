@@ -1,6 +1,7 @@
 public class StateCannibals 
 {    
     int canArray[];
+    int numPeopleOnStartSide;
     
     public StateCannibals(int[] canArray) { this.canArray = canArray; }
     
