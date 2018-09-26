@@ -33,7 +33,7 @@ public class ProblemCannibals extends Problem {
         successor_state.canArray[cannR] += 1;
         successor_state.canArray[boatL] -= 1;
         successor_state.canArray[boatR] += 1;
-        // successor_state.numPeopleOnStartSide = successor_state.canArray[cannL] + successor_state.canArray[missL];        
+        successor_state.numPeopleOnStartSide = successor_state.canArray[cannL] + successor_state.canArray[missL];        
 
         if (isValid(successor_state)) {
             set.add(successor_state);
@@ -41,6 +41,7 @@ public class ProblemCannibals extends Problem {
 
         //one cannibal only from right to left
         StateCannibals one_can_r_to_l = new StateCannibals(can_state);
+        one_can_r_to_l.numPeopleOnStartSide = one_can_r_to_l.canArray[cannR] + one_can_r_to_l.canArray[missR];
         one_can_r_to_l.canArray[cannL] += 1;
         one_can_r_to_l.canArray[cannR] -= 1;
         one_can_r_to_l.canArray[boatL] += 1;
@@ -52,6 +53,7 @@ public class ProblemCannibals extends Problem {
         
         //two cannibals from left to right
         StateCannibals two_can_l_to_r = new StateCannibals(can_state);
+        two_can_l_to_r.numPeopleOnStartSide = successor_state.canArray[cannL] + successor_state.canArray[missL];  
         two_can_l_to_r.canArray[cannL] -= 2;
         two_can_l_to_r.canArray[cannR] += 2;
         two_can_l_to_r.canArray[boatL] -= 1;
@@ -63,6 +65,7 @@ public class ProblemCannibals extends Problem {
         
         //two cannibals from right to left 
         StateCannibals two_can_r_to_l = new StateCannibals(can_state);
+        two_can_r_to_l.numPeopleOnStartSide = one_can_r_to_l.canArray[cannR] + one_can_r_to_l.canArray[missR];
         two_can_r_to_l.canArray[cannL] += 2;
         two_can_r_to_l.canArray[cannR] -= 2;
         two_can_r_to_l.canArray[boatL] += 1;
@@ -74,6 +77,7 @@ public class ProblemCannibals extends Problem {
         
         //one missionary only from left to right 
         StateCannibals one_mis_l_to_r = new StateCannibals(can_state);
+        one_mis_l_to_r.numPeopleOnStartSide = successor_state.canArray[cannL] + successor_state.canArray[missL];  
         one_mis_l_to_r.canArray[missL] -= 1;
         one_mis_l_to_r.canArray[missR] += 1;
         one_mis_l_to_r.canArray[boatL] -= 1;
@@ -85,6 +89,7 @@ public class ProblemCannibals extends Problem {
         
         //one missionary only from right to left 
         StateCannibals one_mis_r_to_l = new StateCannibals(can_state);
+        one_mis_r_to_l.numPeopleOnStartSide = one_can_r_to_l.canArray[cannR] + one_can_r_to_l.canArray[missR];
         one_mis_r_to_l.canArray[missL] += 1;
         one_mis_r_to_l.canArray[missR] -= 1;
         one_mis_r_to_l.canArray[boatL] += 1;
@@ -96,6 +101,7 @@ public class ProblemCannibals extends Problem {
         
         //two missionaries from left to right 
         StateCannibals two_mis_l_to_r = new StateCannibals(can_state);
+        two_mis_l_to_r.numPeopleOnStartSide = successor_state.canArray[cannL] + successor_state.canArray[missL];  
         two_mis_l_to_r.canArray[missL] -= 2;
         two_mis_l_to_r.canArray[missR] += 2;
         two_mis_l_to_r.canArray[boatL] -= 1;
@@ -107,6 +113,7 @@ public class ProblemCannibals extends Problem {
 
         //two missionaries from right to left 
         StateCannibals two_mis_r_to_l = new StateCannibals(can_state);
+        two_mis_r_to_l.numPeopleOnStartSide = one_can_r_to_l.canArray[cannR] + one_can_r_to_l.canArray[missR];
         two_mis_r_to_l.canArray[missL] += 2;
         two_mis_r_to_l.canArray[missR] -= 2;
         two_mis_r_to_l.canArray[boatL] += 1;
@@ -118,6 +125,7 @@ public class ProblemCannibals extends Problem {
         
         //one cannibal and one missionary from left to right 
         StateCannibals one_can_one_mis_l_to_r = new StateCannibals(can_state);
+        one_can_one_mis_l_to_r.numPeopleOnStartSide = successor_state.canArray[cannL] + successor_state.canArray[missL];  
         one_can_one_mis_l_to_r.canArray[missL] -= 1;
         one_can_one_mis_l_to_r.canArray[missR] += 1; 
         one_can_one_mis_l_to_r.canArray[cannL] -= 1; 
@@ -131,6 +139,7 @@ public class ProblemCannibals extends Problem {
         
         //one cannibal and one missionary from right to left 
         StateCannibals one_can_one_mis_r_to_l = new StateCannibals(can_state);
+        one_can_one_mis_r_to_l.numPeopleOnStartSide = one_can_r_to_l.canArray[cannR] + one_can_r_to_l.canArray[missR];
         one_can_one_mis_r_to_l.canArray[missL] += 1;
         one_can_one_mis_r_to_l.canArray[missR] -= 1;
         one_can_one_mis_r_to_l.canArray[cannL] += 1;
@@ -184,8 +193,22 @@ public class ProblemCannibals extends Problem {
 		problem.initialState = new StateCannibals(canArray); 
 		
 		Search search  = new Search(problem);
-		
+		// BFS
 		System.out.println("BreadthFirstTreeSearch:\t\t" + search.BreadthFirstTreeSearch());
-		System.out.println("BreadthFirstGraphSearch:\t" + search.BreadthFirstGraphSearch());
+        System.out.println("BreadthFirstGraphSearch:\t" + search.BreadthFirstGraphSearch());
+        // DFS
+        System.out.println("DepthFirstTreeSearch:\t\t" + search.DepthFirstTreeSearch());
+        System.out.println("DepthFirstGraphSearch:\t" + search.DepthFirstGraphSearch());
+        // UCS
+        System.out.println("UniformCostTreeSearch:\t\t" + search.UniformCostTreeSearch());
+        System.out.println("UniformCostGraphSearch:\t\t" + search.UniformCostGraphSearch());
+        // Greedy
+        System.out.println("GreedyBestFirstGraphSearch:\t" + search.GreedyBestFirstGraphSearch());
+        // A star
+        System.out.println("AstarTreeSearch:\t" + search.AstarTreeSearch());
+        System.out.println("AstarGraphSearch:\t" + search.AstarGraphSearch());
+        // Iterative
+        System.out.println("IterativeDeepeningTreeSearch:\t" + search.IterativeDeepeningTreeSearch());
+        System.out.println("IterativeDeepeningGraphSearch:\t" + search.IterativeDeepeningGraphSearch());
 	}
 }
