@@ -1,0 +1,8 @@
+pandas
+nltk
+numpy
+seaborn
+matplotlib
+sklearn
+script
+
